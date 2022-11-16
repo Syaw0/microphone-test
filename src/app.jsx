@@ -1,44 +1,30 @@
 /* eslint-disable import/extensions */
-import React, { useState } from 'react';
-import {
-  Button, Grid, Typography,
-} from '@mui/material';
-
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import { Box } from '@mui/material';
+import React from 'react';
+import MyStepper from './components/stepper';
+import Recorder from './components/recorder';
+import mainStore from './store/mainStore';
 
 function App() {
-  const [isShow, setIsShow] = useState(false);
+  const currentComponent = mainStore((state) => state.currentComponent);
+
   return (
-    <Grid
+
+    <Box
       data-testid="wrapper"
       sx={{
+        width: '100%',
         height: '100vh',
-
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        border: 1,
       }}
     >
+      {currentComponent === 'stepper' && <MyStepper />}
+      {currentComponent === 'recorder' && <Recorder />}
+    </Box>
 
-      <Grid
-        container
-        justifyContent="center"
-        direction="column"
-        alignItems="center"
-        spacing={0}
-        sx={{
-          width: '100%',
-          border: '1px solid black',
-          height: '100%',
-        }}
-      >
-        <Button sx={{ m: 2 }} variant="contained" onClick={() => setIsShow(true)}>Hello Lets do this!</Button>
-        {isShow && (
-        <Typography variant="h5">
-          Hello there ! we are gonna create a amazing app
-          {' '}
-          <EmojiEmotionsIcon fontSize="medium" color="primary" />
-        </Typography>
-        )}
-      </Grid>
-    </Grid>
   );
 }
 
